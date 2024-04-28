@@ -24,8 +24,38 @@
     "typescript": "5.3.3"
   },
   "manifest": {
+    "background": {
+      "service_worker": "background.ts"
+    },
+    "permissions": [
+      "scripting",
+      "webRequest"
+    ],
     "host_permissions": [
-      "https://*/*"
+      "https://fantasy.espn.com/football/*",
+      "https://lm-api-reads.fantasy.espn.com/*"
+    ],
+    "content_scripts": [
+      {
+        "matches": [
+          "https://fantasy.espn.com/football/*"
+        ],
+        "js": [
+          "/contentScript.js"
+        ],
+        "run_at": "document_start"
+      }
+    ],
+    "web_accessible_resources": [
+      {
+        "resources": [
+          "dataReader.js",
+          "contentScript.js"
+        ],
+        "matches": [
+          "<all_urls>"
+        ]
+      }
     ]
   }
 }
