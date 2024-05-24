@@ -6,7 +6,9 @@ const urlParams = new URLSearchParams(window.location.search);
 const today = new Date();
 const leagueId = urlParams.get('leagueId');
 var pickCount = 0;
-const BASE_URL = "https://pick-pulse.vercel.app"
+
+const BASE_URL = "https://pick-pulse.com"
+// const BASE_URL = "https://pick-pulse.vercel.app"
 // const BASE_URL = "http://localhost:3000"
 const BASE_API_URL = `${BASE_URL}/api`
 
@@ -74,14 +76,22 @@ async function pushQueue() {
 
 function InjectOpenButton() {
   const button = document.createElement("button");
-  button.innerHTML = "Open Draft";
+  button.innerHTML = "Open PickPulse";
   button.onclick = function () {
     window.open(`${BASE_URL}/draftboard/${draftId}`, '_blank')
   }
 
   button.style = `
-
+    background-color: hsl(262.1, 83.3%, 55%);
+    color: white;
+    padding: 2px 9px;
+    margin: 4px 10px;
+    border-radius: 10px;
+    box-shadow: none;
+    border: none;
+    cursor: pointer;
   `;
+
 
   document.querySelector(".icon-group").appendChild(button);
 }
@@ -149,6 +159,8 @@ async function CreateLeague(data) {
       })
 
       if (!response.ok) {
+        const responseData = await response.json();
+        if (responseData.draftId) draftId = responseData.draftId;
         return console.log(await response.json());
       }
 
@@ -173,6 +185,8 @@ async function CreateLeague(data) {
   })
 
   if (!response.ok) {
+    const responseData = await response.json();
+    if (responseData.draftId) draftId = responseData.draftId;
     console.log(await response.json());
   }
 
