@@ -5,16 +5,20 @@
 const urlParams = new URLSearchParams(window.location.search);
 const today = new Date();
 const leagueId = urlParams.get('leagueId');
-
+var pickCount = 0;
 const BASE_URL = "https://pick-pulse.vercel.app"
+// const BASE_URL = "http://localhost:3000"
 const BASE_API_URL = `${BASE_URL}/api`
 
-
-HitDraftInit();
-
-var lockQueue = false;
+var lockQueue = true;
 const pickQueue = [];
-var draftId = GetDraftId();
+var draftId;
+
+
+async function injected() {
+  draftId = await GetDraftId();
+}
+
 
 async function GetDraftId() {
   const response = await fetch(`${BASE_API_URL}/drafts?season=${today.getFullYear()}&leagueId=${leagueId}`, {
@@ -31,13 +35,14 @@ async function GetDraftId() {
 }
 
 async function CreatePick(data) {
+  // console.log(pickCount)
   if (lockQueue) {
-    console.log("Queue is locked, adding pick to queue");
+    // console.log("Queue is locked, adding pick to queue");
     pickQueue.push(data);
     return;
   }
-
-  const response = await fetch(`${BASE_API_URL}/picks/next`, {
+  pickCount++;
+  const response = await fetch(`${BASE_API_URL}/picks`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -47,15 +52,17 @@ async function CreatePick(data) {
       playerId: Number(data.playerId),
       draftId: draftId,
       isKeeper: false,
+      pickNumber: pickCount,
+      cost: data.cost || 0
     })
   })
 
   if (!response.ok) {
-    console.log("Failed to create pick");
+    console.log("Failed to create pick", await response.json());
     return;
   }
   const pick = await response.json();
-  console.log("Pick created successfully!", pick);
+  // console.log("Pick created successfully!", pick);
 }
 
 async function pushQueue() {
@@ -79,18 +86,7 @@ function InjectOpenButton() {
   document.querySelector(".icon-group").appendChild(button);
 }
 
-async function HitDraftInit() {
-  const response = await fetch(`https://lm-api-reads.fantasy.espn.com/apis/v3/games/ffl/seasons/2024/segments/0/leagues/${leagueId}?filter=%7B%22players%22%3A%7B%22filterStatsForContainerIds%22%3A%7B%22value%22%3A%5B%22002023%22%2C%22102024%22%5D%7D%7D%7D&view=draftInit&view=mSettings`, {
-    method: 'GET',
-  });
-
-  if (!response.ok) {
-    console.log(await response.json());
-    return;
-  }
-
-  const draftInit = await response.json();
-
+async function draftInit(draftInit) {
   // const players = draftInit.players.map(player => {
 
   const teams = draftInit.teams.map(team => {
@@ -103,6 +99,7 @@ async function HitDraftInit() {
   const lineupSlots = draftInit.settings.rosterSettings.lineupSlotCounts;
   const timePerSelection = draftInit.settings.draftSettings.timePerSelection;
   const pickOrder = draftInit.settings.draftSettings.pickOrder;
+  const auctionBudget = draftInit.settings.draftSettings.auctionBudget;
   const draftType = draftInit.settings.draftSettings.type.toLowerCase();
   const season = draftInit.seasonId;
   const id = draftInit.id;
@@ -117,7 +114,8 @@ async function HitDraftInit() {
         pickOrder: pickOrder,
         draftType: draftType,
         timePerSelection: timePerSelection,
-        lineupSlots: lineupSlots
+        lineupSlots: lineupSlots,
+        auctionBudget: auctionBudget
       },
       teams: teams
     }
@@ -125,15 +123,44 @@ async function HitDraftInit() {
 }
 
 async function CreateLeague(data) {
+  console.log(data)
+  // console.log("Checking if league exists")
   const leagueResponse = await fetch(`${BASE_API_URL}/leagues?id=${data.id}`, {
     method: 'GET',
   });
 
   if (leagueResponse.ok) {
     const league = await leagueResponse.json();
+
+    if (league.drafts.length === 0) {
+
+      // console.log("League found, but no draft exists, creating new draft")
+      const response = await fetch(`${BASE_API_URL}/drafts`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          season: today.getFullYear(),
+          leagueId: league.id,
+          teams: data.teams,
+          ...data.draft,
+        })
+      })
+
+      if (!response.ok) {
+        return console.log(await response.json());
+      }
+
+      draftId = (await response.json()).id;
+      return
+    }
+
     draftId = league.drafts[0].id;
     return
   };
+
+  // console.log("League not found, creating new league")
 
   const response = await fetch(`${BASE_API_URL}/leagues/frominit`, {
     method: 'POST',
@@ -156,6 +183,7 @@ async function CreateLeague(data) {
 }
 
 async function LoadPickHistory(data) {
+  lockQueue = true;
   const response = await fetch(`${BASE_API_URL}/drafts/pickhistory`, {
     method: 'POST',
     headers: {
@@ -172,10 +200,55 @@ async function LoadPickHistory(data) {
     lockQueue = false;
     return;
   }
-  console.log("Pick history successfully loaded!");
-  lockQueue = false;
-  pushQueue();
+  const draftData = await response.json();
+  pickCount = draftData.draft.totalPicks || 0;
+  // console.log("Pick history successfully loaded!");
+  unlockQueue();
 }
+
+function unlockQueue() {
+  setTimeout(async () => {
+    const response = await fetch(`${BASE_API_URL}/drafts/isLocked?id=${draftId}`)
+
+    if (!response.ok) {
+      console.log(await response.json());
+      return;
+    }
+
+    const data = await response.json();
+    const isLocked = data.locked;
+    lockQueue = Boolean(isLocked);
+    // console.log("Queue unlocked!", lockQueue);
+    // console.log(data)
+    if (lockQueue) {
+      return unlockQueue();
+    }
+
+    await pushQueue();
+  }, 5000);
+}
+
+(function() {
+  const originalXhrOpen = XMLHttpRequest.prototype.open;
+
+  XMLHttpRequest.prototype.open = function() {
+    this.addEventListener('readystatechange', function() {
+      if (this.readyState === 4) { // 4 means the request is done
+        if (!draftId && this.responseURL.includes("draftInit")) {
+          const request = {
+            method: arguments[0],
+            url: this.responseURL,
+            response: JSON.parse(this.responseText)
+          }
+          // console.log('XHR Request:', request);
+          draftInit(request.response)
+        }
+      }
+    });
+
+    originalXhrOpen.apply(this, arguments);
+  };
+})();
 
 var wsHook = {};
 (function () {
@@ -278,7 +351,7 @@ wsHook.after = function(messageEvent, url, wsObject) {
 
 function ReadHookMessage(data) {
   const objects = data.split(" ");
-  console.log(data)
+  // console.log(data)
   switch (objects[0]){
     case "SELECTED":
       CreatePick({
@@ -286,8 +359,14 @@ function ReadHookMessage(data) {
         espnTeamId: objects[1],
       });
       break;
+    case "SOLD":
+      CreatePick({
+        playerId: objects[2],
+        espnTeamId: objects[1],
+        cost: Number(objects[4])
+      });
+      break;
     case "INIT":
-    lockQueue = true;
       setTimeout(() => {
         LoadPickHistory({
           data: data
@@ -303,3 +382,4 @@ function ReadHookMessage(data) {
 setTimeout(() => {
   InjectOpenButton();
 }, 5000);
+injected();
