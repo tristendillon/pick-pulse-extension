@@ -1,1 +1,718 @@
-const _0x5edc7a=_0x1615;(function(_0xc34cac,_0x139e8f){const _0x117014=_0x1615,_0x59c91a=_0xc34cac();while(!![]){try{const _0x1c00e0=parseInt(_0x117014(0x1a0))/0x1+parseInt(_0x117014(0x16d))/0x2+parseInt(_0x117014(0x162))/0x3*(parseInt(_0x117014(0x151))/0x4)+parseInt(_0x117014(0x18e))/0x5+-parseInt(_0x117014(0x169))/0x6+parseInt(_0x117014(0x14a))/0x7+-parseInt(_0x117014(0x186))/0x8*(parseInt(_0x117014(0x14c))/0x9);if(_0x1c00e0===_0x139e8f)break;else _0x59c91a['push'](_0x59c91a['shift']());}catch(_0x3729e4){_0x59c91a['push'](_0x59c91a['shift']());}}}(_0x2540,0xede72));const urlParams=new URLSearchParams(window['location'][_0x5edc7a(0x199)]),today=new Date(),leagueId=urlParams['get'](_0x5edc7a(0x157));var pickCount=0x0;const BASE_URL='https://pick-pulse.com',BASE_API_URL=BASE_URL+'/api';var lockQueue=!![];const pickQueue=[];var draftId;async function injected(){draftId=await GetDraftId();}async function GetDraftId(){const _0x13df53=_0x5edc7a,_0x51566=await fetch(BASE_API_URL+_0x13df53(0x17c)+today[_0x13df53(0x179)]()+_0x13df53(0x150)+leagueId,{'method':_0x13df53(0x15f)});if(!_0x51566['ok']){console[_0x13df53(0x165)](await _0x51566[_0x13df53(0x1a6)]());return;}const _0x4bba8a=await _0x51566[_0x13df53(0x1a6)]();return _0x4bba8a['id'];}function _0x1615(_0x38427f,_0x712e9c){const _0x25407d=_0x2540();return _0x1615=function(_0x1615a3,_0x2e613c){_0x1615a3=_0x1615a3-0x146;let _0x3b34fc=_0x25407d[_0x1615a3];return _0x3b34fc;},_0x1615(_0x38427f,_0x712e9c);}async function CreatePick(_0x4ca442){const _0x1fbc7a=_0x5edc7a;if(lockQueue){pickQueue[_0x1fbc7a(0x15e)](_0x4ca442);return;}pickCount++;const _0x460564=await fetch(BASE_API_URL+_0x1fbc7a(0x171),{'method':_0x1fbc7a(0x184),'headers':{'Content-Type':_0x1fbc7a(0x14e)},'body':JSON[_0x1fbc7a(0x190)]({'espnTeamId':Number(_0x4ca442['espnTeamId']),'playerId':Number(_0x4ca442[_0x1fbc7a(0x15a)]),'draftId':draftId,'isKeeper':![],'pickNumber':pickCount,'cost':_0x4ca442[_0x1fbc7a(0x16f)]||0x0})});if(!_0x460564['ok']){console[_0x1fbc7a(0x165)](_0x1fbc7a(0x17a),await _0x460564['json']());return;}const _0x40a09a=await _0x460564[_0x1fbc7a(0x1a6)]();}async function pushQueue(){const _0x4aa459=_0x5edc7a;while(pickQueue['length']>0x0){const _0xe02820=pickQueue[_0x4aa459(0x146)]();await CreatePick(_0xe02820);}}function InjectOpenButton(){const _0x51ccdc=_0x5edc7a,_0x2838c7=document[_0x51ccdc(0x172)]('button');_0x2838c7['innerHTML']=_0x51ccdc(0x18b),_0x2838c7['onclick']=function(){const _0x58af4a=_0x51ccdc;window[_0x58af4a(0x17d)](BASE_URL+_0x58af4a(0x176)+draftId,'_blank');},_0x2838c7['style']=_0x51ccdc(0x154),document[_0x51ccdc(0x1a4)](_0x51ccdc(0x17b))[_0x51ccdc(0x16b)](_0x2838c7);}async function draftInit(_0x410712){const _0x1f16e3=_0x5edc7a,_0x25758b=_0x410712['teams'][_0x1f16e3(0x178)](_0x14034c=>{const _0x2b5dbb=_0x1f16e3;return{'name':_0x14034c[_0x2b5dbb(0x19d)],'logo':_0x14034c['logo'],'espnTeamNumber':_0x14034c['id']};}),_0x3bcb90=_0x410712['settings']['rosterSettings'][_0x1f16e3(0x15b)],_0x14d4a4=_0x410712[_0x1f16e3(0x14f)]['draftSettings']['timePerSelection'],_0x35e889=_0x410712[_0x1f16e3(0x14f)][_0x1f16e3(0x185)][_0x1f16e3(0x160)],_0x3143c0=_0x410712['settings']['draftSettings'][_0x1f16e3(0x174)],_0x333361=_0x410712[_0x1f16e3(0x14f)][_0x1f16e3(0x185)][_0x1f16e3(0x1a3)][_0x1f16e3(0x15c)](),_0x4d8adb=_0x410712[_0x1f16e3(0x153)],_0x313601=_0x410712['id'],_0x40404c=_0x410712[_0x1f16e3(0x14f)][_0x1f16e3(0x19d)];await CreateLeague({'id':_0x313601,'name':_0x40404c,'draft':{'season':_0x4d8adb,'draftSettings':{'pickOrder':_0x35e889,'draftType':_0x333361,'timePerSelection':_0x14d4a4,'lineupSlots':_0x3bcb90,'auctionBudget':_0x3143c0},'teams':_0x25758b}});}async function CreateLeague(_0x411926){const _0xb8e7cd=_0x5edc7a;console[_0xb8e7cd(0x165)](_0x411926);const _0x1b9bbc=await fetch(BASE_API_URL+_0xb8e7cd(0x18c)+_0x411926['id'],{'method':'GET'});if(_0x1b9bbc['ok']){const _0xccebb2=await _0x1b9bbc[_0xb8e7cd(0x1a6)]();if(_0xccebb2[_0xb8e7cd(0x1a5)][_0xb8e7cd(0x191)]===0x0){const _0x5b0056=await fetch(BASE_API_URL+_0xb8e7cd(0x166),{'method':'POST','headers':{'Content-Type':_0xb8e7cd(0x14e)},'body':JSON['stringify']({'season':today[_0xb8e7cd(0x179)](),'leagueId':_0xccebb2['id'],'teams':_0x411926[_0xb8e7cd(0x149)],..._0x411926['draft']})});if(!_0x5b0056['ok']){const _0x2dfe1d=await _0x5b0056['json']();if(_0x2dfe1d[_0xb8e7cd(0x158)])draftId=_0x2dfe1d[_0xb8e7cd(0x158)];return console[_0xb8e7cd(0x165)](await _0x5b0056[_0xb8e7cd(0x1a6)]());}draftId=(await _0x5b0056['json']())['id'];return;}draftId=_0xccebb2['drafts'][0x0]['id'];return;};const _0x1952aa=await fetch(BASE_API_URL+'/leagues/frominit',{'method':_0xb8e7cd(0x184),'headers':{'Content-Type':_0xb8e7cd(0x14e)},'body':JSON['stringify']({..._0x411926})});if(!_0x1952aa['ok']){const _0x3d7725=await _0x1952aa['json']();if(_0x3d7725[_0xb8e7cd(0x158)])draftId=_0x3d7725[_0xb8e7cd(0x158)];console[_0xb8e7cd(0x165)](await _0x1952aa['json']());}const _0x12d69e=await _0x1952aa['json']();return draftId=_0x12d69e['id'],window['open'](BASE_URL+_0xb8e7cd(0x176)+_0x12d69e['id'],'_blank'),_0x12d69e;}function _0x2540(){const _0x2df655=['teams','11278967DbphgL','onmessage','69282DxadEo','url','application/json','settings','&leagueId=','849868GeuLzd','INIT','seasonId','\x0a\x20\x20\x20\x20background-color:\x20hsl(262.1,\x2083.3%,\x2055%);\x0a\x20\x20\x20\x20color:\x20white;\x0a\x20\x20\x20\x20padding:\x202px\x209px;\x0a\x20\x20\x20\x20margin:\x204px\x2010px;\x0a\x20\x20\x20\x20border-radius:\x2010px;\x0a\x20\x20\x20\x20box-shadow:\x20none;\x0a\x20\x20\x20\x20border:\x20none;\x0a\x20\x20\x20\x20cursor:\x20pointer;\x0a\x20\x20','cancelBubble','origin','leagueId','draftId','resetHooks','playerId','lineupSlotCounts','toLowerCase','send','push','GET','pickOrder','currentTarget','9giwvhN','/drafts/pickhistory','ports','log','/drafts','__proto__','before','6981378xIHrWw','lastEventId','appendChild','SELECTED','184928uWqtsU','SOLD','cost','responseURL','/picks','createElement','message','auctionBudget','source','/draftboard/','readystatechange','map','getFullYear','Failed\x20to\x20create\x20pick','.icon-group','/drafts?season=','open','responseText','timeStamp','_addEventListener','parts','target','eventPhase','POST','draftSettings','2040RXTlDt','includes','draft','parse','readyState','Open\x20PickPulse','/leagues?id=','defaultPrevented','109120GZtiqt','after','stringify','length','bubbles','split','path','srcElement','Failed\x20to\x20load\x20pick\x20history,\x20please\x20refresh\x20the\x20page\x20and\x20try\x20again.','data','cancelable','search','/drafts/isLocked?id=','draftInit','response','name','addEventListener','modifyUrl','1738033SwjsuX','returnValue','locked','type','querySelector','drafts','json','shift','apply','prototype'];_0x2540=function(){return _0x2df655;};return _0x2540();}async function LoadPickHistory(_0x3583d9){const _0x411136=_0x5edc7a;lockQueue=!![];const _0x1470cd=await fetch(BASE_API_URL+_0x411136(0x163),{'method':_0x411136(0x184),'headers':{'Content-Type':_0x411136(0x14e)},'body':JSON[_0x411136(0x190)]({..._0x3583d9})});if(!_0x1470cd['ok']){console['log'](await _0x1470cd[_0x411136(0x1a6)]()),alert(_0x411136(0x196)),lockQueue=![];return;}const _0x340d58=await _0x1470cd[_0x411136(0x1a6)]();pickCount=_0x340d58[_0x411136(0x188)]['totalPicks']||0x0,unlockQueue();}function unlockQueue(){setTimeout(async()=>{const _0x35024e=_0x1615,_0x4c5d47=await fetch(BASE_API_URL+_0x35024e(0x19a)+draftId);if(!_0x4c5d47['ok']){console[_0x35024e(0x165)](await _0x4c5d47[_0x35024e(0x1a6)]());return;}const _0x186fe5=await _0x4c5d47[_0x35024e(0x1a6)](),_0x2c7a1c=_0x186fe5[_0x35024e(0x1a2)];lockQueue=Boolean(_0x2c7a1c);if(lockQueue)return unlockQueue();await pushQueue();},0x1388);}(function(){const _0x496220=_0x5edc7a,_0x5863e0=XMLHttpRequest[_0x496220(0x148)][_0x496220(0x17d)];XMLHttpRequest[_0x496220(0x148)][_0x496220(0x17d)]=function(){const _0x20d39f=_0x496220;this[_0x20d39f(0x19e)](_0x20d39f(0x177),function(){const _0x500a9b=_0x20d39f;if(this[_0x500a9b(0x18a)]===0x4){if(!draftId&&this[_0x500a9b(0x170)][_0x500a9b(0x187)](_0x500a9b(0x19b))){const _0x552352={'method':arguments[0x0],'url':this[_0x500a9b(0x170)],'response':JSON[_0x500a9b(0x189)](this[_0x500a9b(0x17e)])};draftInit(_0x552352[_0x500a9b(0x19c)]);}}}),_0x5863e0[_0x20d39f(0x147)](this,arguments);};}());var wsHook={};(function(){const _0x23116e=_0x5edc7a;function _0x36ec50(_0x39e94e){const _0x34fd11=_0x1615;this[_0x34fd11(0x192)]=_0x39e94e[_0x34fd11(0x192)]||![],this[_0x34fd11(0x155)]=_0x39e94e[_0x34fd11(0x155)]||![],this[_0x34fd11(0x198)]=_0x39e94e[_0x34fd11(0x198)]||![],this[_0x34fd11(0x161)]=_0x39e94e[_0x34fd11(0x161)]||null,this[_0x34fd11(0x197)]=_0x39e94e[_0x34fd11(0x197)]||null,this['defaultPrevented']=_0x39e94e[_0x34fd11(0x18d)]||![],this['eventPhase']=_0x39e94e[_0x34fd11(0x183)]||0x0,this[_0x34fd11(0x16a)]=_0x39e94e[_0x34fd11(0x16a)]||'',this[_0x34fd11(0x156)]=_0x39e94e['origin']||'',this['path']=_0x39e94e[_0x34fd11(0x194)]||new Array(0x0),this[_0x34fd11(0x164)]=_0x39e94e[_0x34fd11(0x181)]||new Array(0x0),this[_0x34fd11(0x1a1)]=_0x39e94e[_0x34fd11(0x1a1)]||!![],this['source']=_0x39e94e[_0x34fd11(0x175)]||null,this['srcElement']=_0x39e94e[_0x34fd11(0x195)]||null,this[_0x34fd11(0x182)]=_0x39e94e[_0x34fd11(0x182)]||null,this[_0x34fd11(0x17f)]=_0x39e94e[_0x34fd11(0x17f)]||null,this[_0x34fd11(0x1a3)]=_0x39e94e[_0x34fd11(0x1a3)]||_0x34fd11(0x173),this[_0x34fd11(0x167)]=_0x39e94e[_0x34fd11(0x167)]||MessageEvent[_0x34fd11(0x167)];}var _0x5d5359=wsHook[_0x23116e(0x168)]=function(_0x42ffad,_0x3e32f1,_0x6f40a1){return _0x42ffad;},_0x278727=wsHook[_0x23116e(0x18f)]=function(_0x55d08c,_0x33e1b2,_0x1924cd){return _0x55d08c;},_0x5e9c69=wsHook['modifyUrl']=function(_0x35563a){return _0x35563a;};wsHook[_0x23116e(0x159)]=function(){const _0x3a71b0=_0x23116e;wsHook['before']=_0x5d5359,wsHook[_0x3a71b0(0x18f)]=_0x278727,wsHook[_0x3a71b0(0x19f)]=_0x5e9c69;};var _0x151cf6=WebSocket;WebSocket=function(_0x32e12a,_0x516005){const _0x235d34=_0x23116e;var _0x222b04;_0x32e12a=wsHook[_0x235d34(0x19f)](_0x32e12a)||_0x32e12a,this['url']=_0x32e12a,this['protocols']=_0x516005;!this['protocols']?_0x222b04=new _0x151cf6(_0x32e12a):_0x222b04=new _0x151cf6(_0x32e12a,_0x516005);var _0x8a6c27=_0x222b04[_0x235d34(0x15d)];return _0x222b04[_0x235d34(0x15d)]=function(_0xb4a3e1){const _0x35f3c7=_0x235d34;arguments[0x0]=wsHook[_0x35f3c7(0x168)](_0xb4a3e1,_0x222b04[_0x35f3c7(0x14d)],_0x222b04)||_0xb4a3e1,_0x8a6c27[_0x35f3c7(0x147)](this,arguments);},_0x222b04[_0x235d34(0x180)]=_0x222b04[_0x235d34(0x19e)],_0x222b04[_0x235d34(0x19e)]=function(){const _0x99b330=_0x235d34;var _0x928010=this;return arguments[0x0]===_0x99b330(0x173)&&(arguments[0x1]=function(_0x39fb59){return function _0x552d99(){const _0x1b061f=_0x1615;arguments[0x0]=wsHook['after'](new _0x36ec50(arguments[0x0]),_0x222b04[_0x1b061f(0x14d)],_0x222b04);if(arguments[0x0]===null)return;_0x39fb59['apply'](_0x928010,arguments);};}(arguments[0x1])),_0x222b04['_addEventListener'][_0x99b330(0x147)](this,arguments);},Object['defineProperty'](_0x222b04,_0x235d34(0x14b),{'set':function(){const _0x1f9e2f=_0x235d34;var _0x352e05=this,_0x3e4865=arguments[0x0],_0x2f52a0=function(){const _0x3e1c31=_0x1615;arguments[0x0]=wsHook['after'](new _0x36ec50(arguments[0x0]),_0x222b04[_0x3e1c31(0x14d)],_0x222b04);if(arguments[0x0]===null)return;_0x3e4865['apply'](_0x352e05,arguments);};_0x222b04[_0x1f9e2f(0x180)][_0x1f9e2f(0x147)](this,[_0x1f9e2f(0x173),_0x2f52a0,![]]);}}),_0x222b04;};}()),wsHook['before']=function(_0x17a59c,_0x2f2c02,_0x4be78a){ReadHookMessage(_0x17a59c);},wsHook[_0x5edc7a(0x18f)]=function(_0x438aab,_0x100411,_0x238504){return ReadHookMessage(_0x438aab['data']),_0x438aab;};function ReadHookMessage(_0x16013){const _0x46f70e=_0x5edc7a,_0x5a08eb=_0x16013[_0x46f70e(0x193)]('\x20');switch(_0x5a08eb[0x0]){case _0x46f70e(0x16c):CreatePick({'playerId':_0x5a08eb[0x2],'espnTeamId':_0x5a08eb[0x1]});break;case _0x46f70e(0x16e):CreatePick({'playerId':_0x5a08eb[0x2],'espnTeamId':_0x5a08eb[0x1],'cost':Number(_0x5a08eb[0x4])});break;case _0x46f70e(0x152):setTimeout(()=>{LoadPickHistory({'data':_0x16013});},0x1388);default:break;}}setTimeout(()=>{InjectOpenButton();},0x1388),injected();
+function _0x3d3f(_0x112d13, _0x1f3ce5) {
+  const _0x5bd7f6 = _0x5bd7()
+  return (
+    (_0x3d3f = function (_0x3d3ff4, _0x3087af) {
+      _0x3d3ff4 = _0x3d3ff4 - 0xf6
+      let _0x1e354c = _0x5bd7f6[_0x3d3ff4]
+      if (_0x3d3f["JpWmdp"] === undefined) {
+        var _0x4c3d0e = function (_0x260aa7) {
+          const _0x33b0f4 =
+            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/="
+          let _0x14e5cc = "",
+            _0xf97854 = ""
+          for (
+            let _0x3ec9ed = 0x0, _0x53eeff, _0x1f6c73, _0x42646d = 0x0;
+            (_0x1f6c73 = _0x260aa7["charAt"](_0x42646d++));
+            ~_0x1f6c73 &&
+            ((_0x53eeff =
+              _0x3ec9ed % 0x4 ? _0x53eeff * 0x40 + _0x1f6c73 : _0x1f6c73),
+            _0x3ec9ed++ % 0x4)
+              ? (_0x14e5cc += String["fromCharCode"](
+                  0xff & (_0x53eeff >> ((-0x2 * _0x3ec9ed) & 0x6))
+                ))
+              : 0x0
+          ) {
+            _0x1f6c73 = _0x33b0f4["indexOf"](_0x1f6c73)
+          }
+          for (
+            let _0x4c2a36 = 0x0, _0x2613df = _0x14e5cc["length"];
+            _0x4c2a36 < _0x2613df;
+            _0x4c2a36++
+          ) {
+            _0xf97854 +=
+              "%" +
+              ("00" + _0x14e5cc["charCodeAt"](_0x4c2a36)["toString"](0x10))[
+                "slice"
+              ](-0x2)
+          }
+          return decodeURIComponent(_0xf97854)
+        }
+        const _0x928cc2 = function (_0x1f95f7, _0x5444ee) {
+          let _0x27b107 = [],
+            _0x258ab8 = 0x0,
+            _0x4de6a1,
+            _0x23e20d = ""
+          _0x1f95f7 = _0x4c3d0e(_0x1f95f7)
+          let _0x56f2f2
+          for (_0x56f2f2 = 0x0; _0x56f2f2 < 0x100; _0x56f2f2++) {
+            _0x27b107[_0x56f2f2] = _0x56f2f2
+          }
+          for (_0x56f2f2 = 0x0; _0x56f2f2 < 0x100; _0x56f2f2++) {
+            ;(_0x258ab8 =
+              (_0x258ab8 +
+                _0x27b107[_0x56f2f2] +
+                _0x5444ee["charCodeAt"](_0x56f2f2 % _0x5444ee["length"])) %
+              0x100),
+              (_0x4de6a1 = _0x27b107[_0x56f2f2]),
+              (_0x27b107[_0x56f2f2] = _0x27b107[_0x258ab8]),
+              (_0x27b107[_0x258ab8] = _0x4de6a1)
+          }
+          ;(_0x56f2f2 = 0x0), (_0x258ab8 = 0x0)
+          for (
+            let _0x42506a = 0x0;
+            _0x42506a < _0x1f95f7["length"];
+            _0x42506a++
+          ) {
+            ;(_0x56f2f2 = (_0x56f2f2 + 0x1) % 0x100),
+              (_0x258ab8 = (_0x258ab8 + _0x27b107[_0x56f2f2]) % 0x100),
+              (_0x4de6a1 = _0x27b107[_0x56f2f2]),
+              (_0x27b107[_0x56f2f2] = _0x27b107[_0x258ab8]),
+              (_0x27b107[_0x258ab8] = _0x4de6a1),
+              (_0x23e20d += String["fromCharCode"](
+                _0x1f95f7["charCodeAt"](_0x42506a) ^
+                  _0x27b107[
+                    (_0x27b107[_0x56f2f2] + _0x27b107[_0x258ab8]) % 0x100
+                  ]
+              ))
+          }
+          return _0x23e20d
+        }
+        ;(_0x3d3f["YukWWo"] = _0x928cc2),
+          (_0x112d13 = arguments),
+          (_0x3d3f["JpWmdp"] = !![])
+      }
+      const _0x81f787 = _0x5bd7f6[0x0],
+        _0x1b470f = _0x3d3ff4 + _0x81f787,
+        _0xf68350 = _0x112d13[_0x1b470f]
+      return (
+        !_0xf68350
+          ? (_0x3d3f["stBpHO"] === undefined && (_0x3d3f["stBpHO"] = !![]),
+            (_0x1e354c = _0x3d3f["YukWWo"](_0x1e354c, _0x3087af)),
+            (_0x112d13[_0x1b470f] = _0x1e354c))
+          : (_0x1e354c = _0xf68350),
+        _0x1e354c
+      )
+    }),
+    _0x3d3f(_0x112d13, _0x1f3ce5)
+  )
+}
+const _0x3e1462 = _0x3d3f
+;(function (_0x1a84ee, _0x319206) {
+  const _0x9842ac = _0x3d3f,
+    _0x4456bd = _0x1a84ee()
+  while (!![]) {
+    try {
+      const _0x5828e6 =
+        -parseInt(_0x9842ac(0x119, "sYYo")) / 0x1 +
+        -parseInt(_0x9842ac(0x168, "R8QT")) / 0x2 +
+        -parseInt(_0x9842ac(0x143, "84GV")) / 0x3 +
+        -parseInt(_0x9842ac(0xf7, "6&9P")) / 0x4 +
+        parseInt(_0x9842ac(0x196, "&fIz")) / 0x5 +
+        (parseInt(_0x9842ac(0x185, "&fIz")) / 0x6) *
+          (parseInt(_0x9842ac(0x110, "#6I]")) / 0x7) +
+        (parseInt(_0x9842ac(0x152, "W3iV")) / 0x8) *
+          (parseInt(_0x9842ac(0x172, "UI8D")) / 0x9)
+      if (_0x5828e6 === _0x319206) break
+      else _0x4456bd["push"](_0x4456bd["shift"]())
+    } catch (_0x5a4c64) {
+      _0x4456bd["push"](_0x4456bd["shift"]())
+    }
+  }
+})(_0x5bd7, 0x20fb2)
+const urlParams = new URLSearchParams(
+    window[_0x3e1462(0x165, "sDlY")][_0x3e1462(0x148, "Dpoq")]
+  ),
+  today = new Date(),
+  leagueId = urlParams["get"](_0x3e1462(0x16d, "WqDF"))
+var pickCount = 0x0
+const BASE_URL = _0x3e1462(0x14d, "edwf"),
+  BASE_API_URL = BASE_URL + "/api"
+var lockQueue = !![]
+const pickQueue = []
+var draftId
+async function injected() {
+  draftId = await GetDraftId()
+}
+async function GetDraftId() {
+  const _0x4ae241 = _0x3e1462,
+    _0x928cc2 = await fetch(
+      BASE_API_URL +
+        "/drafts?season=" +
+        today[_0x4ae241(0x11e, "vj[m")]() +
+        _0x4ae241(0x113, "Dpoq") +
+        leagueId,
+      { method: _0x4ae241(0x16b, "R8QT") }
+    )
+  if (!_0x928cc2["ok"]) {
+    console[_0x4ae241(0x12b, "8@Fe")](
+      await _0x928cc2[_0x4ae241(0x145, "sDlY")]()
+    )
+    return
+  }
+  const _0x260aa7 = await _0x928cc2[_0x4ae241(0x170, "1i]o")]()
+  return _0x260aa7["id"]
+}
+async function CreatePick(_0x33b0f4) {
+  const _0x42b52f = _0x3e1462
+  if (lockQueue) {
+    pickQueue[_0x42b52f(0x13a, "1MKs")](_0x33b0f4)
+    return
+  }
+  pickCount++
+  const _0x14e5cc = await fetch(BASE_API_URL + _0x42b52f(0x108, "1i]o"), {
+    method: "POST",
+    headers: { "Content-Type": _0x42b52f(0x100, "CL35") },
+    body: JSON[_0x42b52f(0x133, "edwf")]({
+      espnTeamId: Number(_0x33b0f4[_0x42b52f(0x18c, "R8QT")]),
+      playerId: Number(_0x33b0f4[_0x42b52f(0x141, "84GV")]),
+      draftId: draftId,
+      isKeeper: ![],
+      pickNumber: pickCount,
+      cost: _0x33b0f4[_0x42b52f(0x11d, "f0rK")] || 0x0
+    })
+  })
+  if (!_0x14e5cc["ok"]) {
+    console[_0x42b52f(0x144, "aI1$")](
+      _0x42b52f(0x173, "WqDF"),
+      await _0x14e5cc["json"]()
+    )
+    return
+  }
+  const _0xf97854 = await _0x14e5cc[_0x42b52f(0x13b, "6&9P")]()
+}
+async function pushQueue() {
+  const _0x36adf5 = _0x3e1462
+  while (pickQueue[_0x36adf5(0x111, "IsId")] > 0x0) {
+    const _0x3ec9ed = pickQueue[_0x36adf5(0x184, "Kd#$")]()
+    await CreatePick(_0x3ec9ed)
+  }
+}
+function InjectOpenButton() {
+  const _0xc089c7 = _0x3e1462,
+    _0x53eeff = document["createElement"](_0xc089c7(0x114, "n2r&"))
+  ;(_0x53eeff["innerHTML"] = "Open\x20PickPulse"),
+    (_0x53eeff[_0xc089c7(0x11f, "GCCp")] = function () {
+      const _0xf8b1b9 = _0xc089c7
+      window[_0xf8b1b9(0xfb, "n2r&")](
+        BASE_URL + _0xf8b1b9(0xf9, "Kd#$") + draftId,
+        _0xf8b1b9(0x154, "R8QT")
+      )
+    }),
+    (_0x53eeff[_0xc089c7(0x137, "CPnG")] = _0xc089c7(0x103, "n2r&")),
+    document[_0xc089c7(0x156, "vj[m")](_0xc089c7(0x149, "@4Dz"))["appendChild"](
+      _0x53eeff
+    )
+}
+function _0x5bd7() {
+  const _0x805aa4 = [
+    "W7tdGSogWRuV",
+    "heNdI8obW4BdIgPKzSku",
+    "mJW1WOdcKComW6VdM8kgWReVkSk5s3bfWRddItHKe8omi8k2xav8WO4OW5dcMbJcRueRrCkZW5GkomkjW4egnSkWW4BcObG0xmkKW4m+W7i/WO7dQhBcR8k+bSkqW6ZcRmkDWQ/cKYa2mSobemkrA8kQWRbUu8kdW7tdNCkGWQ7dTNhdQCo/Db/dH8oZutFdSCoflCk6m8kFtCo7dCk7W5VdGf1+WPWMW4RdKfHPW47dKYRcSvRcTSoZW57cLCo3WPniW6WXWQ03kCkpWPbHCfVdSmocb8kXWRDkyCkBdSk6W5ZcGwxcLdxcLSkli8ofeJCZDMBdT8oxW6mtBeRdRCkhmYJcMxWFmmkxe0DaWRRdN0/cSSoJW7FcJSkSWOCseSkXWR0jW6DIWOJdG3pdUG",
+    "D8k6gxLDjG",
+    "cmoVzqSBWQnYWQtdP8kxW4hdJW",
+    "WPanW6vzfZtdQCoGugVcHd0",
+    "v8kaWRZcQGRcRc3cL3GxWPicB8km",
+    "WRRdTSkZW6JcUda",
+    "WRyrpXXVW7ZcRa",
+    "pCoUWOap",
+    "W4RdMCkQW7NcVdDkbv4",
+    "zq7dNCkev0O9FmkbW41owmokWQVdSZTOAcZdKG",
+    "qmoCm8kQxCkRWOHYW7RcI8oU",
+    "WR7dTLNdSCkSWOC",
+    "oINdLgH9uavaW487",
+    "AwRcIuHltWrLW6u",
+    "lmkcW6CjW6bK",
+    "WOqTW6NcVgxcQCk3WOeumexcJa",
+    "tsuNWOFdVSovCvldNqq",
+    "wMLHW5tdNSoa",
+    "W4RdP8k+W6/cLJvanhxdLmkdabZdJH3dN0u",
+    "aeVdJCoQ",
+    "dmoIBmkSvwnUW4pdLCo6WRXA",
+    "WRdcV8kiv8kTbxJdSfhdGW",
+    "WPZdKqv+uSkSW7pcR8koaSoK",
+    "W4dcG1aVfmklW5lcJ8k/c8ozW6lcJwtcHYi",
+    "WOXpW5tcRG",
+    "WQVdIKaAW43dVmkPamoA",
+    "W5ZcRCoJrW",
+    "FmoWkI3cL8kDn8oKh8kXWRq",
+    "WRqAlWnNW7JcOG",
+    "j8orWOxcIYdcO1hcK8klWQZcM8kf",
+    "WQJdN0aaW4y",
+    "W7LlcCkTWOtcQKi",
+    "D8o6oq",
+    "jmkTWQeeWQrivCk6WR8o",
+    "jNLT",
+    "F8oNpW3cLSk4pW",
+    "kSoYbM0",
+    "kSoHe2OE",
+    "W5xdPCoECcLP",
+    "tu/cMIqcW67dKN/cSLhdQr3cPv/dMCkOx2He",
+    "a1tdJW",
+    "pI/dGwPGyWXvW5uXnZBdRrhdK8k5",
+    "W6WftbZcLCkKWQCu",
+    "W6pcVqpcPSo9W5fmfcfui8oCWQy",
+    "fqNcJ2ON",
+    "atOTWOG",
+    "WOHxW5dcOW",
+    "W6qTWPzeoe/dMr3dMSofW7W",
+    "jSoaWOtcKIhcQKVcKmkM",
+    "WRpdSvldTmkPWOWh",
+    "nCkvW6u",
+    "ee7cMYaqW5ldJJ/cQuS",
+    "bXVcGMmW",
+    "F8kHfNPCjCkjW7hdOmkNx8kDnmoFWPZdRW",
+    "A2RcGZ44mavYW78wd0G",
+    "W7NdQCkXWRS",
+    "sCo9zSkJ",
+    "WQCOvMze",
+    "W74gta3cJG",
+    "wSkgmuS",
+    "WRZdOupdPCkKWO4r",
+    "zvNdVSkuWPCRW4pdL8k8W5rSW5/cGmoRWPnG",
+    "WOmaW6PdfYRdOSoX",
+    "WPOJgua",
+    "W4DuWRWmrwZdGmoICeRcRJu",
+    "xmksW7K",
+    "jmoGhwi",
+    "WOm1geO",
+    "W6FdO8kUW77cOs1Zo23dRCkp",
+    "gcWJWPtdUSoi",
+    "WRVdM8ovWRy4bSkrq8oOWPdcNG",
+    "nmkiW4ubW6nPxSkix8k7W5i",
+    "bLNcIsmqW5pdHq",
+    "ctZcGSk1",
+    "pCoaWOlcIZZdTW3dMCkOWR7cLmoFpZNcT2pcJ3vbWQddS8kWWP/dRCocWRu",
+    "hv7dM8o0W4xdG3rK",
+    "umoRFCk5w3HSW4m",
+    "dbRdVunkvcHL",
+    "jCk6WQmLWRfEtmk+WQuFWQWRW5pcImk8WOy",
+    "W6RcHWfdWPVcO8o4aSoYlSoCWPH2",
+    "W7moW5DhWQv7WPxcRKe",
+    "WOlcN8owqCksWRO",
+    "pLtdOCkqWQe6W5pdQ8k4W4PTWPm",
+    "ASoGoXNcM8kIpSorh8kZWRj5WQS",
+    "bYyL",
+    "kSkuW6ya",
+    "W7HSW6vyk8kKE8k/u3yXxSkR",
+    "W6hdM8oBWRWfx8kxxmo3",
+    "cmocWP8tdSkNhe3cGq",
+    "E0pdVmkF",
+    "wSk8ov1lW78aWQddKmktW6ddUXa",
+    "wSk4BMxdN185WQZdQW",
+    "C3xdGhitj8o8",
+    "W4LEzSoVmNqzh2O",
+    "W48WW4LwWQ9JWPVcK3iP",
+    "iSkcW68bW6zP",
+    "g0ldMmoH",
+    "fKlcHsa3W67dGd3cSG",
+    "iSo8ew0ExKxcGG",
+    "shnNW5tdGG",
+    "WQldOutdOSkSWOCtaW",
+    "W6NdImkigmonW6fgCvGgW7/cJq",
+    "vCklW7SOhJ7cNSonkdG",
+    "WQBcQmkivCkGbwNdPvhdJW43mW",
+    "WPRcUmoU",
+    "ymk8cNzhmSkZW7VdTG",
+    "n1ZdRxKuW4xdN8oD",
+    "WRGbpH1RW7xcVxyYW54em8kT",
+    "WOy0hKpdSc4",
+    "W7/dTCk1W6u",
+    "W4TBWRGkqrpdVSoLCwxcOW",
+    "W4frW7pcG2xdQNy",
+    "hvJdPxieW4tcTSonW4ddI8kUmGH6bmkZWQpcNCo1W5ZcGq",
+    "th1NW4FdLmoA",
+    "ibNdGmkl",
+    "iCoBWOlcMIpcNuVcLCk0WRO",
+    "W7fQW7He",
+    "pXJdGW",
+    "W7tcQwuA",
+    "h1RdMSoWW5K",
+    "WQldTfZdV8kX",
+    "b8oHAamBWQS",
+    "W6JdRmkYWR8i",
+    "WRpdOvBdUCk3WOW",
+    "WRZdJfmvW5FdKSkK",
+    "W6dcO8o0v8oaeSkKjLaXwh3cMmkWfIVdTq",
+    "jmk6WRy1WQfdx8kS",
+    "kvZdV24oW47dPCoCW7RcUCkb",
+    "W5VcSmoXvCoXn8kKpfaux2NcNW",
+    "ymkGexLD",
+    "E1VcN8oxcwqmn8kNW5rw",
+    "W5xcSCo/xq",
+    "vWuiWQbCW7vPj8kvW7BdJ8ks",
+    "W6hdK8oeWR4ZxW",
+    "W5WaW65Bfs3dJSoMhw/cMJCom8olWQ99",
+    "W5fZWQRdRYa",
+    "lCoVyGqBWQSqWQxdQSovW4hdHttdRCoZsh0KgSowWRpcOa4dcuZcV8o5W69UdIa/WRLAWPxdI8oFeHlcUCoUWQfMWQDKW5WcWONcQcbRE8kscSoGWP00W4iWW7tdSCk0W5C4xxe",
+    "WRJcJSoktSkOWRrpt1iQ",
+    "obBcQmkEWPBcHG",
+    "y2xdLMunlmozW6tdNSoeuG",
+    "WPjfW4VcPq",
+    "vSo6W59rWQxdJqxcOHddUIbDW4LT",
+    "W4xdICkjW58",
+    "WP4nW7S",
+    "WPrzW4m",
+    "p8ohWPNcLq",
+    "WR/dPv3dSW",
+    "E1JcNCoqba5+iSk9W5HpzSoS",
+    "WOTtW4RcRW",
+    "W6DldSkQWOZcO0aE",
+    "q8ksW6S0cqS",
+    "bKRcNcq",
+    "m8kTWQmNWRX+xCkRWQutWQeKW4e",
+    "WRNdMLy2W5xdVSkUeSoVe8owWO9EW5aiAq",
+    "W6CTWOrJoe/dGrtdJCobW7JdUCkUtmooWOW",
+    "fCk3omo4aI5DW57cNmoeWO4E",
+    "smo0W59rWOxdItpcQrddHY0",
+    "pmkScN5piCk4W7ldRSkHEmoD",
+    "W7ZdNmovWRuJt8ktqG",
+    "v2XWW44",
+    "q8onjCkW",
+    "lHJdJSkdru0",
+    "W7vEcSkYWOZcRKyzWPFcLeKue8ocWO54",
+    "lmkiW64b",
+    "nSkVWRiTWQfowCkRWRGvWQfSW5JcLCk0WO0"
+  ]
+  _0x5bd7 = function () {
+    return _0x805aa4
+  }
+  return _0x5bd7()
+}
+async function draftInit(_0x1f6c73) {
+  const _0x1df86a = _0x3e1462,
+    _0x42646d = _0x1f6c73["teams"][_0x1df86a(0x192, "84GV")]((_0x56f2f2) => {
+      const _0x411e44 = _0x1df86a
+      return {
+        name: _0x56f2f2[_0x411e44(0x195, "Z]vE")],
+        logo: _0x56f2f2[_0x411e44(0xff, "IsId")],
+        espnTeamNumber: _0x56f2f2["id"]
+      }
+    }),
+    _0x4c2a36 =
+      _0x1f6c73["settings"][_0x1df86a(0x190, "abX(")][_0x1df86a(0x138, "Kd#$")],
+    _0x2613df =
+      _0x1f6c73[_0x1df86a(0x14f, "6&9P")][_0x1df86a(0x16a, "^*de")][
+        _0x1df86a(0x140, "@@34")
+      ],
+    _0x1f95f7 =
+      _0x1f6c73[_0x1df86a(0x12d, "KzbN")][_0x1df86a(0x19b, "CL35")][
+        "pickOrder"
+      ],
+    _0x5444ee =
+      _0x1f6c73[_0x1df86a(0x181, "CL35")][_0x1df86a(0x19b, "CL35")][
+        "auctionBudget"
+      ],
+    _0x27b107 =
+      _0x1f6c73[_0x1df86a(0x198, "aqR@")][_0x1df86a(0x183, "f0rK")][
+        _0x1df86a(0x11b, "UI8D")
+      ][_0x1df86a(0x14a, "IsId")](),
+    _0x258ab8 = _0x1f6c73["seasonId"],
+    _0x4de6a1 = _0x1f6c73["id"],
+    _0x23e20d = _0x1f6c73[_0x1df86a(0x167, "Z]vE")]["name"]
+  await CreateLeague({
+    id: _0x4de6a1,
+    name: _0x23e20d,
+    draft: {
+      season: _0x258ab8,
+      draftSettings: {
+        pickOrder: _0x1f95f7,
+        draftType: _0x27b107,
+        timePerSelection: _0x2613df,
+        lineupSlots: _0x4c2a36,
+        auctionBudget: _0x5444ee
+      },
+      teams: _0x42646d
+    }
+  })
+}
+async function CreateLeague(_0x42506a) {
+  const _0x4f8b2c = _0x3e1462
+  console[_0x4f8b2c(0x193, "UI8D")](_0x42506a)
+  const _0x110094 = await fetch(
+    BASE_API_URL + _0x4f8b2c(0x117, "6&9P") + _0x42506a["id"],
+    { method: _0x4f8b2c(0x125, "fH$U") }
+  )
+  if (_0x110094["ok"]) {
+    const _0x27653f = await _0x110094[_0x4f8b2c(0x175, "&fIz")]()
+    if (_0x27653f[_0x4f8b2c(0xfd, "&fIz")]["length"] === 0x0) {
+      const _0xfd5763 = await fetch(BASE_API_URL + "/drafts", {
+        method: _0x4f8b2c(0x191, "1i]o"),
+        headers: { "Content-Type": _0x4f8b2c(0x12c, "#6I]") },
+        body: JSON[_0x4f8b2c(0x11c, "W3iV")]({
+          season: today[_0x4f8b2c(0x132, "u^tp")](),
+          leagueId: _0x27653f["id"],
+          teams: _0x42506a["teams"],
+          ..._0x42506a["draft"]
+        })
+      })
+      if (!_0xfd5763["ok"]) {
+        const _0xc1a45c = await _0xfd5763["json"]()
+        if (_0xc1a45c[_0x4f8b2c(0x14b, "H%Qe")]) draftId = _0xc1a45c["draftId"]
+        return console[_0x4f8b2c(0x157, "Dpoq")](
+          await _0xfd5763[_0x4f8b2c(0x15c, "@@34")]()
+        )
+      }
+      draftId = (await _0xfd5763[_0x4f8b2c(0x186, "f0rK")]())["id"]
+      return
+    }
+    draftId = _0x27653f[_0x4f8b2c(0x104, "Kd#$")][0x0]["id"]
+    return
+  }
+  const _0x3126c7 = await fetch(BASE_API_URL + _0x4f8b2c(0x189, "84GV"), {
+    method: "POST",
+    headers: { "Content-Type": _0x4f8b2c(0x12c, "#6I]") },
+    body: JSON[_0x4f8b2c(0x160, "8n]K")]({ ..._0x42506a })
+  })
+  if (!_0x3126c7["ok"]) {
+    const _0x4aaa6e = await _0x3126c7[_0x4f8b2c(0x177, "Vzzi")]()
+    if (_0x4aaa6e[_0x4f8b2c(0x17f, "W3iV")])
+      draftId = _0x4aaa6e[_0x4f8b2c(0x126, "vj[m")]
+    console[_0x4f8b2c(0x123, "vj[m")](
+      await _0x3126c7[_0x4f8b2c(0x194, "edwf")]()
+    )
+  }
+  const _0x1ac105 = await _0x3126c7[_0x4f8b2c(0x18f, "UI8D")]()
+  return (
+    (draftId = _0x1ac105["id"]),
+    window["open"](
+      BASE_URL + _0x4f8b2c(0x155, "@@34") + _0x1ac105["id"],
+      "_blank"
+    ),
+    _0x1ac105
+  )
+}
+async function LoadPickHistory(_0x231499) {
+  const _0x2c7dcd = _0x3e1462
+  lockQueue = !![]
+  const _0x40556e = await fetch(BASE_API_URL + _0x2c7dcd(0x12a, "H%Qe"), {
+    method: _0x2c7dcd(0x179, "sYYo"),
+    headers: { "Content-Type": _0x2c7dcd(0xfe, "aqR@") },
+    body: JSON[_0x2c7dcd(0x16c, "Kd#$")]({ ..._0x231499 })
+  })
+  if (!_0x40556e["ok"]) {
+    console["log"](await _0x40556e[_0x2c7dcd(0x10a, "%#K]")]()),
+      alert(_0x2c7dcd(0x18b, "@WbI")),
+      (lockQueue = ![])
+    return
+  }
+  const _0x362924 = await _0x40556e[_0x2c7dcd(0x146, "$Q0p")]()
+  ;(pickCount =
+    _0x362924[_0x2c7dcd(0x128, "sDlY")][_0x2c7dcd(0x176, "edwf")] || 0x0),
+    unlockQueue()
+}
+function unlockQueue() {
+  setTimeout(async () => {
+    const _0x46f679 = _0x3d3f,
+      _0x64c005 = await fetch(BASE_API_URL + _0x46f679(0x10c, "&fIz") + draftId)
+    if (!_0x64c005["ok"]) {
+      console["log"](await _0x64c005[_0x46f679(0x158, "IsId")]())
+      return
+    }
+    const _0x1ce667 = await _0x64c005[_0x46f679(0x130, "Dpoq")](),
+      _0xd587d9 = _0x1ce667[_0x46f679(0x17c, "@WbI")]
+    lockQueue = Boolean(_0xd587d9)
+    if (lockQueue) return unlockQueue()
+    await pushQueue()
+  }, 0x1388)
+}
+;(function () {
+  const _0x3d9c21 = _0x3e1462,
+    _0xfdd95a = XMLHttpRequest["prototype"][_0x3d9c21(0xfc, "klpX")]
+  XMLHttpRequest["prototype"][_0x3d9c21(0x116, "8@Fe")] = function () {
+    const _0x2db9b4 = _0x3d9c21
+    this[_0x2db9b4(0x19c, "W3iV")](_0x2db9b4(0x151, "CL35"), function () {
+      const _0x115a68 = _0x2db9b4
+      if (this[_0x115a68(0x118, "^*de")] === 0x4) {
+        if (
+          !draftId &&
+          this["responseURL"][_0x115a68(0xfa, "@4Dz")]("draftInit")
+        ) {
+          const _0x359741 = {
+            method: arguments[0x0],
+            url: this[_0x115a68(0x182, "WqDF")],
+            response: JSON[_0x115a68(0x121, "W3iV")](
+              this[_0x115a68(0x120, "edwf")]
+            )
+          }
+          draftInit(_0x359741[_0x115a68(0x14e, "8@Fe")])
+        }
+      }
+    }),
+      _0xfdd95a["apply"](this, arguments)
+  }
+})()
+var wsHook = {}
+;(function () {
+  const _0x462bd7 = _0x3e1462
+  function _0x10e548(_0x3279dd) {
+    const _0x510791 = _0x3d3f
+    ;(this[_0x510791(0x134, "Z]vE")] =
+      _0x3279dd[_0x510791(0x15f, "9^!h")] || ![]),
+      (this[_0x510791(0x106, "84GV")] =
+        _0x3279dd[_0x510791(0x105, "@WbI")] || ![]),
+      (this[_0x510791(0x161, "2ZND")] = _0x3279dd["cancelable"] || ![]),
+      (this[_0x510791(0x159, "Vzzi")] =
+        _0x3279dd[_0x510791(0x16e, "GCCp")] || null),
+      (this[_0x510791(0x127, "sDlY")] = _0x3279dd["data"] || null),
+      (this[_0x510791(0x11a, "sYYo")] =
+        _0x3279dd[_0x510791(0xf6, "u^tp")] || ![]),
+      (this[_0x510791(0x10f, "#6I]")] =
+        _0x3279dd[_0x510791(0x169, "aI1$")] || 0x0),
+      (this[_0x510791(0xf8, "abX(")] =
+        _0x3279dd[_0x510791(0x10d, "klpX")] || ""),
+      (this[_0x510791(0x16f, "$Q0p")] =
+        _0x3279dd[_0x510791(0x10e, "Z]vE")] || ""),
+      (this["path"] = _0x3279dd[_0x510791(0x131, "UI8D")] || new Array(0x0)),
+      (this[_0x510791(0x166, "n2r&")] =
+        _0x3279dd[_0x510791(0x17a, "8@Fe")] || new Array(0x0)),
+      (this[_0x510791(0x18e, "9^!h")] =
+        _0x3279dd[_0x510791(0x147, "1i]o")] || !![]),
+      (this[_0x510791(0x129, "6yip")] =
+        _0x3279dd[_0x510791(0x199, "aI1$")] || null),
+      (this[_0x510791(0x102, "8@Fe")] =
+        _0x3279dd[_0x510791(0x124, "CL35")] || null),
+      (this[_0x510791(0x188, "@4Dz")] =
+        _0x3279dd[_0x510791(0x174, "n2r&")] || null),
+      (this[_0x510791(0x164, "H%Qe")] =
+        _0x3279dd[_0x510791(0x15a, "@4Dz")] || null),
+      (this["type"] =
+        _0x3279dd[_0x510791(0x163, "8@Fe")] || _0x510791(0x109, "GCCp")),
+      (this[_0x510791(0x10b, "1i]o")] =
+        _0x3279dd[_0x510791(0x15b, "%#K]")] ||
+        MessageEvent[_0x510791(0x153, "2ZND")])
+  }
+  var _0x4d3304 = (wsHook["before"] = function (
+      _0x310280,
+      _0x39593a,
+      _0x10803f
+    ) {
+      return _0x310280
+    }),
+    _0x340dcf = (wsHook[_0x462bd7(0x12f, "CPnG")] = function (
+      _0x43935f,
+      _0x1e293b,
+      _0x3d32ee
+    ) {
+      return _0x43935f
+    }),
+    _0x5639dc = (wsHook["modifyUrl"] = function (_0x26cb69) {
+      return _0x26cb69
+    })
+  wsHook[_0x462bd7(0x136, "H%Qe")] = function () {
+    const _0x1191f4 = _0x462bd7
+    ;(wsHook[_0x1191f4(0x18d, "]PwG")] = _0x4d3304),
+      (wsHook["after"] = _0x340dcf),
+      (wsHook["modifyUrl"] = _0x5639dc)
+  }
+  var _0x381967 = WebSocket
+  WebSocket = function (_0x19af56, _0x396a79) {
+    const _0x34fdb3 = _0x462bd7
+    var _0x53401c
+    ;(_0x19af56 = wsHook["modifyUrl"](_0x19af56) || _0x19af56),
+      (this[_0x34fdb3(0x178, "&fIz")] = _0x19af56),
+      (this[_0x34fdb3(0x15e, "yNkc")] = _0x396a79)
+    !this["protocols"]
+      ? (_0x53401c = new _0x381967(_0x19af56))
+      : (_0x53401c = new _0x381967(_0x19af56, _0x396a79))
+    var _0x13d869 = _0x53401c[_0x34fdb3(0x142, "$Q0p")]
+    return (
+      (_0x53401c[_0x34fdb3(0x197, "UI8D")] = function (_0x227095) {
+        const _0x103598 = _0x34fdb3
+        ;(arguments[0x0] =
+          wsHook[_0x103598(0x17e, "Z]vE")](
+            _0x227095,
+            _0x53401c["url"],
+            _0x53401c
+          ) || _0x227095),
+          _0x13d869[_0x103598(0x13c, "bbjO")](this, arguments)
+      }),
+      (_0x53401c["_addEventListener"] = _0x53401c[_0x34fdb3(0x19c, "W3iV")]),
+      (_0x53401c["addEventListener"] = function () {
+        const _0x562284 = _0x34fdb3
+        var _0xab45e4 = this
+        return (
+          arguments[0x0] === _0x562284(0x13f, "Z]vE") &&
+            (arguments[0x1] = (function (_0x56b1e1) {
+              return function _0x584b5a() {
+                arguments[0x0] = wsHook["after"](
+                  new _0x10e548(arguments[0x0]),
+                  _0x53401c["url"],
+                  _0x53401c
+                )
+                if (arguments[0x0] === null) return
+                _0x56b1e1["apply"](_0xab45e4, arguments)
+              }
+            })(arguments[0x1])),
+          _0x53401c[_0x562284(0x115, "1i]o")][_0x562284(0x17d, "1MKs")](
+            this,
+            arguments
+          )
+        )
+      }),
+      Object[_0x34fdb3(0x107, "%uOg")](_0x53401c, "onmessage", {
+        set: function () {
+          const _0x3fc0e0 = _0x34fdb3
+          var _0x2ccf4d = this,
+            _0x5c604a = arguments[0x0],
+            _0x31c6cf = function () {
+              const _0x2b1179 = _0x3d3f
+              arguments[0x0] = wsHook[_0x2b1179(0x18a, "73]X")](
+                new _0x10e548(arguments[0x0]),
+                _0x53401c[_0x2b1179(0x135, "IsId")],
+                _0x53401c
+              )
+              if (arguments[0x0] === null) return
+              _0x5c604a["apply"](_0x2ccf4d, arguments)
+            }
+          _0x53401c[_0x3fc0e0(0x180, "f0rK")][_0x3fc0e0(0x101, "@4Dz")](this, [
+            _0x3fc0e0(0x122, "aqR@"),
+            _0x31c6cf,
+            ![]
+          ])
+        }
+      }),
+      _0x53401c
+    )
+  }
+})(),
+  (wsHook[_0x3e1462(0x162, "IsId")] = function (
+    _0x34915d,
+    _0x3d1a72,
+    _0x2c8a4c
+  ) {
+    ReadHookMessage(_0x34915d)
+  }),
+  (wsHook[_0x3e1462(0x13d, "KzbN")] = function (
+    _0x529dd4,
+    _0x21adc5,
+    _0x5ae801
+  ) {
+    const _0x5e6409 = _0x3e1462
+    return ReadHookMessage(_0x529dd4[_0x5e6409(0x19a, "H%Qe")]), _0x529dd4
+  })
+function ReadHookMessage(_0x565241) {
+  const _0x46850c = _0x3e1462,
+    _0x5b2f12 = _0x565241[_0x46850c(0x17b, "Z]vE")]("\x20")
+  switch (_0x5b2f12[0x0]) {
+    case _0x46850c(0x150, "#6I]"):
+      CreatePick({ playerId: _0x5b2f12[0x2], espnTeamId: _0x5b2f12[0x1] })
+      break
+    case _0x46850c(0x14c, "]PwG"):
+      CreatePick({
+        playerId: _0x5b2f12[0x2],
+        espnTeamId: _0x5b2f12[0x1],
+        cost: Number(_0x5b2f12[0x4])
+      })
+      break
+    case _0x46850c(0x13e, "Kd#$"):
+      setTimeout(() => {
+        LoadPickHistory({ data: _0x565241 })
+      }, 0x1388)
+    default:
+      break
+  }
+}
+setTimeout(() => {
+  InjectOpenButton()
+}, 0x1388),
+  injected()
