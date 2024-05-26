@@ -1,8 +1,8 @@
 {
   "name": "pick-pulse",
-  "displayName": "Pick pulse",
-  "version": "0.0.1",
-  "description": "Pick Pulse is the leading Draft Board builder for ESPN Drafts",
+  "displayName": "PickPulse",
+  "version": "2.0.0",
+  "description": "PickPulse is the live draft board for ESPN fantasy football drafts",
   "author": "Tristen Dillon, Trever Dillon",
   "scripts": {
     "dev": "plasmo dev",
@@ -20,7 +20,10 @@
     "@types/node": "20.11.5",
     "@types/react": "18.2.48",
     "@types/react-dom": "18.2.18",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
     "prettier": "3.2.4",
+    "tailwindcss": "^3.4.3",
     "typescript": "5.3.3"
   },
   "manifest": {
@@ -28,8 +31,7 @@
       "service_worker": "background.ts"
     },
     "permissions": [
-      "scripting",
-      "webRequest"
+      "scripting"
     ],
     "host_permissions": [
       "https://fantasy.espn.com/football/*",
