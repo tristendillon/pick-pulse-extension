@@ -27,9 +27,6 @@
     "typescript": "5.3.3"
   },
   "manifest": {
-    "background": {
-      "service_worker": "background.ts"
-    },
     "permissions": [
       "scripting"
     ],
